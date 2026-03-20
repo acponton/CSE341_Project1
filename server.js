@@ -1,9 +1,15 @@
 const express = require('express');
-
 const mongodb = require('./data/database');
 const app = express();
 
 const port = process.env.PORT || 3000;
+
+app.use(express.json());
+
+// Swagger
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use ('/', require('./routes'));
 
